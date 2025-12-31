@@ -6,12 +6,13 @@ Cross-platform agent skills and prompts for AI coding assistants.
 
 This repository provides reusable skills and templates for multiple agent runtimes:
 
-- **Claude Code** - Skills in `.claude/skills/`
-- **GitHub Copilot CLI** - Skills in `.codex/skills/` (copilot-\*)
-- **Codex CLI** - Skills in `.codex/skills/` (codex-_, claude-_)
-- **Spec Kit** - Spec-Driven Development workflow skills (`speckit-*`)
+- **Claude Code** - Skills in `.claude/skills/`, agents in `.claude/agents/`, commands in `.claude/commands/`
+- **Codex CLI** - Skills in `.codex/skills/` (claude-\*), prompts in `.codex/prompts/`
+- **GitHub Copilot CLI** - Via symlinks in `.codex/skills/` and `.github/skills/`
+- **GitHub Actions** - Agent files in `.github/agents/`, prompt files in `.github/prompts/`, skills in `.github/skills/`
+- **Spec Kit** - Spec-Driven Development workflow skills (`speckit-*`) across all runtimes
 
-Each skill lives in a folder with a `SKILL.md` that documents how to run it.
+Each skill directory contains a `skill.yaml` configuration and `SKILL.md` documentation.
 
 ### Spec Kit Workflow
 
@@ -35,53 +36,97 @@ See **[AGENTS.md](./AGENTS.md#spec-kit-workflow)** for the complete workflow gui
    git clone git@github.com:dceoy/cli-agent-skills.git
    ```
 
-2. Pick a runtime and open a skill's `SKILL.md`:
-   - Claude Code skills: `.claude/skills/`
-   - Codex CLI skills: `.codex/skills/`
+2. Pick a runtime and explore the skills:
+   - **Claude Code:** `.claude/skills/` (skill directories), `.claude/agents/` (agent definitions), `.claude/commands/` (command prompts)
+   - **Codex CLI:** `.codex/skills/` (skill directories), `.codex/prompts/` (prompt files)
+   - **GitHub Actions:** `.github/agents/`, `.github/prompts/`, `.github/skills/`
 
-3. Follow the instructions in that `SKILL.md` to invoke the skill from your agent.
+3. Open a skill directory and read the `SKILL.md` to learn how to invoke it.
 
 ## Skills by runtime
 
-### Claude Code (in `.claude/skills/`)
+### Claude Code
 
-- `copilot-ask`, `copilot-exec`, `copilot-review`
-- `codex-ask`, `codex-exec`, `codex-review`
-- `speckit-*` workflow skills
+**Skills** (`.claude/skills/`)
 
-### Codex CLI (in `.codex/skills/`)
+- `copilot-ask`, `copilot-exec`, `copilot-review` - GitHub Copilot CLI integration
+- `codex-ask`, `codex-exec`, `codex-review` - OpenAI Codex CLI integration
+- `speckit-analyze`, `speckit-checklist`, `speckit-clarify`, `speckit-constitution`, `speckit-implement`, `speckit-plan`, `speckit-specify`, `speckit-tasks`, `speckit-taskstoissues` - Spec Kit workflow
 
-- `claude-ask`, `claude-exec`, `claude-review`
-- `copilot-ask`, `copilot-exec`, `copilot-review`
-- `speckit-*` workflow skills
+**Agents** (`.claude/agents/`)
+
+- `codex-ask.md`, `codex-exec.md`, `codex-review.md` - Codex CLI agent definitions
+- See `.claude/agents/README.md` for agent documentation
+
+**Commands** (`.claude/commands/`)
+
+- `speckit.*.md` - Command prompts for Spec Kit workflow
+
+### Codex CLI
+
+**Skills** (`.codex/skills/`)
+
+- `claude-ask`, `claude-exec`, `claude-review` - Claude Code integration (native)
+- `copilot-*`, `speckit-*` - Symlinks to `.claude/skills/`
+
+**Prompts** (`.codex/prompts/`)
+
+- `speckit.*.md` - Prompt files for Spec Kit workflow
+
+### GitHub Actions
+
+**Agents** (`.github/agents/`)
+
+- `speckit.*.agent.md` - Agent definitions for GitHub automation
+
+**Prompts** (`.github/prompts/`)
+
+- `speckit.*.prompt.md` - Prompt files for GitHub automation
+
+**Skills** (`.github/skills/`)
+
+- Symlinks to both `.claude/skills/` and `.codex/skills/`
 
 ## Structure
 
 ```
 .
 ├── .claude/
-│   ├── agents/          # Claude Code agent definitions
-│   ├── commands/        # Claude Code command prompts (Spec Kit)
-│   └── skills/          # Claude Code skill definitions
+│   ├── agents/          # Claude Code agent definitions (codex-*)
+│   ├── commands/        # Claude Code command prompts (speckit.*)
+│   └── skills/          # Claude Code skill directories (copilot-*, codex-*, speckit-*)
 ├── .codex/
-│   ├── prompts/         # Codex CLI prompt content (mirrors Spec Kit)
-│   └── skills/          # Codex CLI skill definitions
+│   ├── prompts/         # Codex CLI prompt files (speckit.*)
+│   └── skills/          # Codex CLI skills (claude-* native, others symlinked)
 ├── .github/
-│   ├── agents/          # GitHub automation agents
-│   ├── prompts/         # GitHub workflow prompts
-│   └── workflows/       # CI workflows
+│   ├── agents/          # GitHub automation agents (speckit.*.agent.md)
+│   ├── prompts/         # GitHub workflow prompts (speckit.*.prompt.md)
+│   ├── skills/          # GitHub skills (symlinks to .claude and .codex)
+│   └── workflows/       # CI workflows (ci.yml)
+├── .serena/             # Serena MCP memories, cache, and project config
+│   ├── cache/
+│   ├── memories/
+│   └── project.yml
 └── .specify/            # Spec Kit templates and memory files
+    ├── memory/
+    ├── scripts/
+    └── templates/       # spec, plan, tasks, checklist, agent-file templates
 ```
 
 ## Prerequisites
 
-You need the matching CLI tool installed and authenticated before running a skill.
-Refer to each tool's official documentation for installation and login steps.
+Install and authenticate the required CLI tools before running skills:
 
-- Claude Code CLI
-- GitHub Copilot CLI
-- Codex CLI
-- Spec Kit
+- **Claude Code** - For `.claude/` skills, agents, and commands
+  - Install: https://claude.com/claude-code
+  - Auth: Follow CLI onboarding flow
+- **GitHub Copilot CLI** - For `copilot-*` skills
+  - Install: https://github.com/features/copilot/cli
+  - Auth: `gh auth login` (requires GitHub Copilot subscription)
+- **OpenAI Codex CLI** - For `codex-*` skills
+  - Install: https://developers.openai.com/codex/cli/
+  - Auth: ChatGPT subscription or API key in `~/.codex/config.toml`
+- **Spec Kit** - Implemented via skills in this repository (no separate installation)
 
 ## Usage notes
 
@@ -110,9 +155,31 @@ Refer to each tool's official documentation for installation and login steps.
 
 ## Troubleshooting
 
-- Skill not found: confirm the skill directory exists and the name matches the request.
-- CLI not in PATH: ensure the tool installs into your shell PATH.
-- Auth errors: re-run the tool's login/auth command per its docs.
+**Skill not found**
+
+- Confirm the skill directory exists in the expected runtime location
+- Check that skill name matches exactly (case-sensitive)
+- Verify `skill.yaml` exists in the skill directory
+
+**CLI not in PATH**
+
+- Ensure the tool is installed and accessible: `which <tool-name>`
+- Add the tool's bin directory to your shell PATH
+- Restart your terminal after installation
+
+**Authentication errors**
+
+- Re-run the tool's auth command:
+  - Claude Code: Follow onboarding flow
+  - Copilot CLI: `gh auth login`
+  - Codex CLI: `codex` (follow auth flow) or configure `~/.codex/config.toml`
+- Verify active subscription (Copilot, ChatGPT) or API key (Codex)
+
+**Symlink issues**
+
+- Some skills use symlinks (`.codex/skills/`, `.github/skills/`)
+- If broken, verify source directories exist in `.claude/skills/`
+- On Windows, ensure symlink support is enabled
 
 ## Contributing
 

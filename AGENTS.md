@@ -4,16 +4,42 @@ Guidelines for editing agent definitions, skills, and prompts in this repository
 
 ## Project Structure
 
-- `.claude/agents/` Claude Code agent definitions (see `.claude/agents/README.md`).
-- `.claude/commands/` Claude Code command prompts (Spec Kit commands).
-- `.claude/skills/` Claude Code skill definitions (`copilot-*`, `codex-*`, `speckit-*`).
-- `.codex/prompts/` Spec Kit prompt content for Codex CLI usage.
-- `.codex/skills/` Codex CLI skill definitions (`claude-*`, `copilot-*`, `speckit-*`).
-- `.github/agents/` and `.github/prompts/` GitHub automation agents/prompts.
-- `.github/workflows/ci.yml` CI workflows (Claude review/bot runs on PRs).
-- `.specify/` Spec Kit templates and memory files.
-- `.serena/` Serena MCP memories and project configuration.
-- Root docs: `README.md` (overview), `LICENSE`, `AGENTS.md`, and `CLAUDE.md`.
+### Claude Code Runtime (`.claude/`)
+
+- `.claude/agents/` - Agent definitions for autonomous task execution (codex-ask, codex-exec, codex-review)
+- `.claude/commands/` - Command prompt files for Spec Kit workflow (speckit.\*.md)
+- `.claude/skills/` - Skill directories with skill.yaml + SKILL.md (copilot-_, codex-_, speckit-\*)
+
+### Codex CLI Runtime (`.codex/`)
+
+- `.codex/prompts/` - Prompt files for Spec Kit workflow (speckit.\*.md)
+- `.codex/skills/` - Native claude-\* skills + symlinks to .claude/skills/ for others
+
+### GitHub Actions Runtime (`.github/`)
+
+- `.github/agents/` - Agent definitions for GitHub automation (speckit.\*.agent.md)
+- `.github/prompts/` - Prompt files for GitHub workflows (speckit.\*.prompt.md)
+- `.github/skills/` - Symlinks to both .claude/skills/ and .codex/skills/
+- `.github/workflows/` - CI workflow definitions (ci.yml)
+
+### Spec Kit Framework (`.specify/`)
+
+- `.specify/templates/` - Templates for spec, plan, tasks, checklist, agent files
+- `.specify/memory/` - Constitution and other persistent memory
+- `.specify/scripts/` - Helper scripts
+
+### Serena MCP (`.serena/`)
+
+- `.serena/memories/` - MCP memory files
+- `.serena/cache/` - MCP cache
+- `.serena/project.yml` - Project configuration
+
+### Root Documentation
+
+- `README.md` - Repository overview and quick start
+- `AGENTS.md` - This file (agent guidelines + Spec Kit workflow)
+- `CLAUDE.md` - Symlink to AGENTS.md (do not edit directly)
+- `LICENSE` - Repository license
 
 ## Canonical Files
 
@@ -25,17 +51,74 @@ Install and authenticate the required CLI tools before running skills. See `READ
 
 ## Coding Style & Naming
 
-- Use Markdown for docs and prompts; keep headings short.
-- Prefer fenced code blocks for examples.
-- Keep filenames in kebab-case (e.g., `codex-ask.md`, `speckit.plan.md`).
-- YAML uses 2-space indentation (see `.github/workflows/ci.yml`).
-- Keep instructions concise and task-focused.
+**Markdown Files**
+
+- Use Markdown for docs, prompts, and agent definitions
+- Keep headings short and descriptive
+- Prefer fenced code blocks for examples
+- Keep instructions concise and task-focused
+
+**File Naming**
+
+- Skills: `<tool>-<action>` directories (e.g., `codex-ask/`, `speckit-plan/`)
+- Agents: `<tool>-<action>.md` (e.g., `codex-ask.md`)
+- Commands: `<tool>.<action>.md` (e.g., `speckit.plan.md`)
+- Prompts: `<tool>.<action>.prompt.md` or `<tool>.<action>.agent.md`
+- Use kebab-case for multi-word names
+
+**YAML Files**
+
+- 2-space indentation (see `.github/workflows/ci.yml`)
+- Skill configs use `skill.yaml` in each skill directory
+- Boolean values: `true`/`false` (lowercase)
+
+**Skill Structure**
+Each skill directory must contain:
+
+- `skill.yaml` - Skill configuration and metadata
+- `SKILL.md` - Documentation and usage instructions
+
+## Symlink Strategy
+
+This repository uses symlinks to share skills across runtimes:
+
+**Source Skills** (`.claude/skills/`)
+
+- Primary location for copilot-_, codex-_, and speckit-\* skills
+- Contains actual skill directories with skill.yaml and SKILL.md
+
+**Symlinked Skills**
+
+- `.codex/skills/` - Symlinks to copilot-_ and speckit-_ from .claude/skills/
+- `.github/skills/` - Symlinks to all skills from both .claude and .codex
+
+**Benefits**
+
+- Single source of truth for shared skills
+- Easy maintenance (edit once, works everywhere)
+- Reduced duplication
+
+**When Adding/Modifying Skills**
+
+1. Create/edit skills in their primary location:
+   - claude-\* → `.codex/skills/` (native)
+   - copilot-_, codex-_, speckit-\* → `.claude/skills/` (native)
+2. Create symlinks as needed:
+   ```bash
+   ln -s ../../.claude/skills/speckit-example .codex/skills/speckit-example
+   ln -s ../../.claude/skills/speckit-example .github/skills/speckit-example
+   ```
+3. Verify symlinks work: `ls -la .codex/skills/`
 
 ## Validation
 
-- Review diffs with `git diff`.
-- Check that Markdown renders cleanly.
-- When adding/renaming agents or prompts, update any local indexes or READMEs that list them (for example, `.claude/agents/README.md`).
+- Review diffs with `git diff` before committing
+- Check that Markdown renders cleanly in GitHub preview
+- Verify symlinks are not broken: `find . -xtype l` (should return nothing)
+- When adding/renaming agents or prompts, update indexes:
+  - `.claude/agents/README.md` - Agent documentation
+  - `README.md` - Skills by runtime section
+  - `AGENTS.md` - Project structure section
 
 ## Commit & PR Guidelines
 
