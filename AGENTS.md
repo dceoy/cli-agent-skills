@@ -116,9 +116,8 @@ This repository uses symlinks to share skills across runtimes:
 - Check that Markdown renders cleanly in GitHub preview
 - Verify symlinks are not broken: `find . -xtype l` (should return nothing)
 - When adding/renaming agents or prompts, update indexes:
-  - `.claude/agents/README.md` - Agent documentation
   - `README.md` - Skills by runtime section
-  - `AGENTS.md` - Project structure section
+  - `AGENTS.md` - Project structure and Codex CLI Agents sections
 
 ## Commit & PR Guidelines
 
@@ -139,6 +138,117 @@ This repository uses symlinks to share skills across runtimes:
 - Never hardcode secrets; rely on environment variables or MCP credentials.
 - If Serena MCP is unavailable or missing a capability, state it and propose a safe fallback.
 - Be explicit and reproducible when describing tool usage.
+
+## Codex CLI Agents
+
+Specialized Claude Code agents that integrate OpenAI Codex CLI capabilities for autonomous development tasks.
+
+### Available Agents
+
+**codex-ask** - Answer questions about code (read-only)
+
+- Uses Codex to analyze code and provide detailed answers
+- Includes file references and line numbers
+- Shows code examples
+- Never modifies code
+
+Use for: Understanding existing code, exploring architecture, finding implementations, learning patterns, debugging assistance
+
+**codex-exec** - Execute development tasks with code modifications
+
+- Generates new code and refactors existing code
+- Adds features and fixes bugs
+- Creates tests
+- Modifies code files
+
+Use for: Code generation, refactoring, feature implementation, bug fixes, test creation
+
+**codex-review** - Perform comprehensive code reviews (read-only)
+
+- Identifies bugs and security vulnerabilities
+- Detects performance problems
+- Suggests improvements
+- Provides actionable feedback
+- Never modifies code
+
+Use for: Pre-commit checks, pull request reviews, security audits, performance analysis, code quality assessment
+
+### Usage Patterns
+
+Simply describe your task to Claude Code, and it will launch the appropriate agent:
+
+```
+"Can you help me understand how authentication works?"
+→ Launches codex-ask agent
+
+"Add input validation to the registration form"
+→ Launches codex-exec agent
+
+"Review my changes for security issues"
+→ Launches codex-review agent
+```
+
+### Workflow Patterns
+
+**Understand → Execute → Review**
+
+1. Launch codex-ask: Understand current implementation
+2. Launch codex-exec: Make improvements
+3. Launch codex-review: Verify changes
+
+**Pre-Commit Workflow**
+
+1. Make changes to code
+2. Launch codex-review: Review uncommitted changes
+3. Launch codex-exec: Fix identified issues
+4. Launch codex-review: Final verification
+5. Commit with confidence
+
+**Feature Development**
+
+1. Launch codex-ask: Research existing patterns
+2. Launch codex-exec: Implement following patterns
+3. Launch codex-exec: Create tests
+4. Launch codex-review: Review implementation
+
+### Prerequisites
+
+- Codex CLI installed and available in PATH
+- ChatGPT Plus/Pro/Team/Enterprise subscription or OpenAI API key in `~/.codex/config.toml`
+- Internet connection for API access
+
+### Configuration
+
+Global config (`~/.codex/config.toml`):
+
+```toml
+[general]
+model = "gpt-4o"
+
+[execution]
+auto_approve = false
+
+[api]
+# If using API key:
+# key = "sk-..."
+```
+
+Project config (`.codex/config.toml`, optional):
+
+```toml
+[project]
+name = "your-project-name"
+language = "typescript"
+```
+
+### Agent Files
+
+```
+.claude/agents/
+├── codex-ask.md     # Question-answering agent
+├── codex-exec.md    # Execution agent
+└── codex-review.md  # Code review agent
+```
 
 ## Spec Kit Workflow
 

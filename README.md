@@ -56,7 +56,7 @@ See **[AGENTS.md](./AGENTS.md#spec-kit-workflow)** for the complete workflow gui
 **Agents** (`.claude/agents/`)
 
 - `codex-ask.md`, `codex-exec.md`, `codex-review.md` - Codex CLI agent definitions
-- See `.claude/agents/README.md` for agent documentation
+- See [AGENTS.md](./AGENTS.md#codex-cli-agents) for agent documentation
 
 **Commands** (`.claude/commands/`)
 
