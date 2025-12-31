@@ -18,6 +18,14 @@ Convert tasks.md into GitHub issues with proper dependencies, labels, and organi
 
 ## Execution Workflow
 
+> **🚨 CRITICAL SAFETY REQUIREMENT 🚨**
+>
+> **MUST verify GitHub remote URL BEFORE creating ANY issues!**
+>
+> - ONLY proceed if remote is a valid GitHub URL
+> - NEVER create issues in the wrong repository
+> - ALWAYS confirm repository matches your intent
+
 1. **Setup**: Run `.specify/scripts/bash/check-prerequisites.sh --json --require-tasks --include-tasks` to get FEATURE_DIR and AVAILABLE_DOCS, extract path to tasks file
 2. **CRITICAL SAFETY CHECK** - Verify GitHub remote:
 

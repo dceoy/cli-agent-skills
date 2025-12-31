@@ -33,11 +33,11 @@ Cross-artifact consistency and quality analysis for feature specifications. Vali
    - User story/action inventory with acceptance criteria
    - Task coverage mapping (maps tasks to requirements)
    - Constitution rule set (principle names and normative statements)
-4. **Detection passes** (limit 50 findings max):
+4. **Detection passes** (maximum 50 findings total - aggregate overflow):
    - **Duplication**: Near-duplicate requirements, lower-quality phrasing
    - **Ambiguity**: Vague adjectives (fast, scalable, secure, intuitive, robust), unresolved placeholders (TODO, ???, `<placeholder>`)
    - **Underspecification**: Requirements missing object/outcome, user stories missing acceptance criteria, tasks referencing undefined files
-   - **Constitution Alignment**: Conflicts with MUST principles (CRITICAL), missing mandated sections/gates
+   - **Constitution Alignment**: Conflicts with MUST principles (ALWAYS CRITICAL), missing mandated sections/gates
    - **Coverage Gaps**: Requirements with zero tasks, tasks with no mapped requirement, missing non-functional task coverage
    - **Inconsistency**: Terminology drift, data entities in plan but not spec, task ordering contradictions, conflicting requirements
 5. **Severity assignment**:

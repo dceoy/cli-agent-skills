@@ -23,6 +23,13 @@ Detect and reduce ambiguity in feature specifications through targeted questioni
 
 This workflow runs BEFORE `/speckit.plan`. If user explicitly skips clarification, warn that downstream rework risk increases.
 
+**CRITICAL LIMITS:**
+
+- **Maximum 5 questions** per session (total asked)
+- **ONE question at a time** - never batch questions
+- **Provide recommendations** for all questions based on best practices
+- **User can reply "yes"** to accept recommendation
+
 1. **Setup**: Run `.specify/scripts/bash/check-prerequisites.sh --json --paths-only` once to get FEATURE_DIR and FEATURE_SPEC
 2. **Load spec** and perform structured ambiguity scan across 11 categories:
    - Functional Scope & Behavior
@@ -47,13 +54,14 @@ This workflow runs BEFORE `/speckit.plan`. If user explicitly skips clarificatio
    - User can reply "yes"/"recommended"/"suggested" to accept recommendation
    - After answer: Record in working memory, move to next question
    - Stop when: critical ambiguities resolved, user signals completion, or 5 questions reached
-5. **Integration after EACH accepted answer** (incremental update):
+5. **Integration after EACH accepted answer** (incremental update - NOT batched):
+   - **CRITICAL**: Update spec file after EACH answer, not at the end
    - Maintain in-memory spec representation
    - First answer: Create/ensure `## Clarifications` section with `### Session YYYY-MM-DD` subheading
    - Append bullet: `- Q: <question> → A: <final answer>`
    - Apply clarification to appropriate section (Functional Requirements, NFRs, Data Model, etc.)
    - Replace vague statement instead of duplicating
-   - Save spec file AFTER each integration (atomic overwrite)
+   - **Save spec file immediately** AFTER each integration (atomic overwrite prevents context loss)
 6. **Validation** after each write:
    - One bullet per accepted answer in Clarifications
    - No duplicate entries or contradictory statements

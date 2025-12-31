@@ -28,7 +28,11 @@ Create structured feature specifications from natural language descriptions. Fir
 The user's input after the skill invocation is the feature description. The workflow:
 
 1. **Generate concise branch name** (2-4 words) from feature description
-2. **Check for existing branches** across remote, local, and specs directories to find next available number
+   - Use action-noun format (e.g., "add-user-auth", "fix-payment-bug")
+   - Preserve technical terms (OAuth2, API, JWT)
+2. **Check for existing branches** across remote, local, and specs directories
+   - Find highest feature number for this short-name across ALL sources
+   - Use next available number (N+1)
 3. **Run setup script** `.specify/scripts/bash/create-new-feature.sh` with calculated number and short-name
 4. **Load spec template** from `.specify/templates/spec-template.md`
 5. **Fill specification** with:
@@ -37,8 +41,11 @@ The user's input after the skill invocation is the feature description. The work
    - Acceptance criteria for each story
    - Functional, non-functional requirements, and constraints
    - Make informed guesses for unclear aspects (document in Assumptions)
-   - Limit `[NEEDS CLARIFICATION]` markers to maximum 3 critical items
+   - **LIMIT: Maximum 3 `[NEEDS CLARIFICATION]` markers total** - only for critical decisions
+   - Prioritize clarifications: scope > security/privacy > UX > technical details
 6. **Validate quality** using spec quality checklist
+   - Creates `checklists/requirements.md` to validate spec completeness
+   - Checks for implementation details, testable requirements, measurable success criteria
 7. **Present clarification questions** (if markers remain) with suggested answers in table format
 8. **Update spec** with user's answers
 9. **Report completion** with branch name, spec file path, and readiness for next phase

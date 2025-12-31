@@ -30,16 +30,19 @@ Generate comprehensive technical implementation plan from feature specification.
    - Fill Technical Context (mark unknowns as "NEEDS CLARIFICATION")
    - Fill Constitution Check section from constitution
    - Evaluate gates (ERROR if violations unjustified)
-   - **Phase 0**: Generate research.md (resolve all NEEDS CLARIFICATION)
+   - **Phase 0: Research** - Resolve all NEEDS CLARIFICATION before design
      - Extract unknowns from Technical Context
-     - Research best practices for each unknown
-     - Consolidate findings with decision rationale and alternatives
-   - **Phase 1**: Generate design artifacts
+     - Research best practices for each unknown (web search, documentation)
+     - Generate research.md with decision rationale and alternatives considered
+     - **MUST complete Phase 0 before Phase 1**
+   - **Phase 1: Design** - Generate technical artifacts
      - data-model.md: Extract entities from spec, define fields/relationships/validation
-     - contracts/: Generate API contracts from functional requirements
+     - contracts/: Generate API contracts (OpenAPI/GraphQL) from functional requirements
      - quickstart.md: Create test scenarios and setup instructions
-     - Update agent context by running `.specify/scripts/bash/update-agent-context.sh claude`
-   - Re-evaluate Constitution Check post-design
+     - **Update agent context**: Run `.specify/scripts/bash/update-agent-context.sh claude`
+       - Adds new technology from plan to agent-specific context
+       - Preserves manual additions between markers
+   - Re-evaluate Constitution Check post-design (verify no violations introduced)
 4. **Report**: Command ends after planning. Report branch, IMPL_PLAN path, and generated artifacts
 
 ## Key Points

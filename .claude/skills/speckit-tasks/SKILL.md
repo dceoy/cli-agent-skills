@@ -47,13 +47,16 @@ Generate actionable, dependency-ordered tasks from design artifacts. Third step 
 
 ## Key Points
 
-- **Task format**: `- [ ] [TaskID] [P?] [Story?] Description with file path`
-  - Checkbox required: `- [ ]`
-  - Task ID: Sequential (T001, T002, T003...)
-  - `[P]` marker: Only if parallelizable
-  - `[Story]` label: Required for user story phases ([US1], [US2], etc.)
-  - Description must include exact file path
-- **Tests are OPTIONAL**: Only generate test tasks if explicitly requested
+- **STRICT task format** (REQUIRED): `- [ ] [TaskID] [P?] [Story?] Description with file path`
+  - ✅ Checkbox required: `- [ ]` (not `- ` or `*`)
+  - ✅ Task ID: Sequential (T001, T002, T003...) in execution order
+  - ✅ `[P]` marker: ONLY if parallelizable (different files, no dependencies)
+  - ✅ `[Story]` label: REQUIRED for user story phases ([US1], [US2], etc.) - NOT for Setup/Foundation/Polish
+  - ✅ Description MUST include exact file path
+  - Examples:
+    - `- [ ] T001 Create project structure per implementation plan` (Setup - no story label)
+    - `- [ ] T012 [P] [US1] Create User model in src/models/user.py` (User story task, parallelizable)
+- **Tests are OPTIONAL**: Only generate test tasks if explicitly requested in spec or user asks for TDD
 - **Organization by user story** enables independent implementation and testing
 - Each user story phase should be complete and independently testable
 - Map all components to their story (models, services, endpoints, tests)

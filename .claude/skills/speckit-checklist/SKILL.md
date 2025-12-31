@@ -56,8 +56,9 @@ Generate requirement quality validation checklists. "Unit Tests for English" - v
 5. **Generate checklist**:
    - Create `FEATURE_DIR/checklists/` directory if doesn't exist
    - Generate unique filename: `[domain].md` (e.g., ux.md, api.md, security.md)
-   - Each run creates NEW file (never overwrites)
+   - Each run creates NEW file (never overwrites existing checklists)
    - Number items sequentially starting from CHK001
+   - **Soft cap: 40 items** - if more candidates, prioritize by risk/impact and merge near-duplicates
 6. **Checklist structure** - Group items by requirement quality dimensions:
    - Requirement Completeness (are all necessary requirements documented?)
    - Requirement Clarity (are requirements specific and unambiguous?)

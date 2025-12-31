@@ -18,10 +18,11 @@ Execute the implementation by processing tasks from tasks.md in phases. Fourth s
 
 1. **Setup**: Run `.specify/scripts/bash/check-prerequisites.sh --json --require-tasks --include-tasks` to get FEATURE_DIR and AVAILABLE_DOCS
 2. **Check checklists status** (if FEATURE_DIR/checklists/ exists):
-   - Scan all checklist files and count total, completed, incomplete items
+   - **VALIDATION GATE**: Scan all checklist files and count total, completed, incomplete items
    - Create status table showing pass/fail for each checklist
-   - If any checklist incomplete: Ask user if they want to proceed anyway
-   - If all complete: Automatically proceed
+   - **If any checklist incomplete**: STOP and ask user if they want to proceed anyway
+     - User must explicitly approve to continue
+   - **If all complete**: Automatically proceed to implementation
 3. **Load implementation context**:
    - **REQUIRED**: tasks.md (complete task list), plan.md (tech stack, architecture)
    - **IF EXISTS**: data-model.md, contracts/, research.md, quickstart.md
@@ -44,11 +45,13 @@ Execute the implementation by processing tasks from tasks.md in phases. Fourth s
    - Core development (models, services, CLI commands, endpoints)
    - Integration work (database, middleware, logging, external services)
    - Polish and validation (unit tests, optimization, documentation)
-8. **Progress tracking**:
+8. **Progress tracking and task completion**:
    - Report progress after each completed task
    - Halt execution if non-parallel task fails
    - For parallel tasks, continue with successful ones, report failures
-   - **Mark completed tasks** with `[X]` in tasks file
+   - **CRITICAL**: Mark completed tasks **immediately** with `[X]` in tasks.md
+     - Change `- [ ] T001` to `- [X] T001` after completion
+     - Do NOT batch task updates - mark each one as you complete it
 
 ## Key Points
 

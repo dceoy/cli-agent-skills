@@ -64,10 +64,11 @@ This updates the template at `.specify/memory/constitution.md` containing placeh
 
 ## Key Points
 
-- **Semantic versioning strictly enforced**:
-  - MAJOR: Backward incompatible changes
-  - MINOR: New principles added
-  - PATCH: Clarifications only
+- **Semantic versioning strictly enforced** (CONSTITUTION_VERSION):
+  - **MAJOR (X.0.0)**: Backward incompatible governance/principle removals or redefinitions
+  - **MINOR (0.X.0)**: New principle/section added or materially expanded guidance
+  - **PATCH (0.0.X)**: Clarifications, wording, typo fixes, non-semantic refinements
+  - **Always justify** version bump type with reasoning
 - **Each principle requires** succinct name, description (MUST/SHOULD/MAY), explicit rationale
 - **Sync all dependent templates** - plan, spec, tasks, commands
 - **No unexplained placeholders** - justify any deferred items in sync report
