@@ -9,6 +9,7 @@ This repository provides reusable skills and templates for multiple agent runtim
 - **Claude Code** - Skills in `.claude/skills/`, agents in `.claude/agents/`, commands in `.claude/commands/`
 - **Codex CLI** - Skills in `.codex/skills/` (claude-\*), prompts in `.codex/prompts/`
 - **GitHub Copilot CLI** - Via symlinks in `.codex/skills/` and `.github/skills/`
+- **Gemini CLI** - Skills in `.claude/skills/` (gemini-\*), commands in `.gemini/commands/`
 - **GitHub Actions** - Agent files in `.github/agents/`, prompt files in `.github/prompts/`, skills in `.github/skills/`
 - **Spec Kit** - Spec-Driven Development workflow skills (`speckit-*`) across all runtimes
 
@@ -39,6 +40,7 @@ See **[AGENTS.md](./AGENTS.md#spec-kit-workflow)** for the complete workflow gui
 2. Pick a runtime and explore the skills:
    - **Claude Code:** `.claude/skills/` (skill directories), `.claude/agents/` (agent definitions), `.claude/commands/` (command prompts)
    - **Codex CLI:** `.codex/skills/` (skill directories), `.codex/prompts/` (prompt files)
+   - **Gemini CLI:** `.gemini/commands/` (prompt files)
    - **GitHub Actions:** `.github/agents/`, `.github/prompts/`, `.github/skills/`
 
 3. Open a skill directory and read the `SKILL.md` to learn how to invoke it.
@@ -49,14 +51,17 @@ See **[AGENTS.md](./AGENTS.md#spec-kit-workflow)** for the complete workflow gui
 
 **Skills** (`.claude/skills/`)
 
-- `copilot-ask`, `copilot-exec`, `copilot-review` - GitHub Copilot CLI integration
+- `copilot-ask`, `copilot-exec`, `copilot-review`, `copilot-search` - GitHub Copilot CLI integration
 - `codex-ask`, `codex-exec`, `codex-review`, `codex-search` - OpenAI Codex CLI integration
+- `gemini-ask`, `gemini-exec`, `gemini-review`, `gemini-search` - Gemini CLI integration
 - `speckit-analyze`, `speckit-checklist`, `speckit-clarify`, `speckit-constitution`, `speckit-implement`, `speckit-plan`, `speckit-specify`, `speckit-tasks`, `speckit-taskstoissues` - Spec Kit workflow
 
 **Agents** (`.claude/agents/`)
 
 - `codex-ask.md`, `codex-exec.md`, `codex-review.md`, `codex-search.md` - Codex CLI agent definitions
-- See [AGENTS.md](./AGENTS.md#codex-cli-agents) for agent documentation
+- `copilot-ask.md`, `copilot-exec.md`, `copilot-review.md`, `copilot-search.md` - Copilot CLI agent definitions
+- `gemini-ask.md`, `gemini-exec.md`, `gemini-review.md`, `gemini-search.md` - Gemini CLI agent definitions
+- See [AGENTS.md](./AGENTS.md) for agent documentation
 
 **Commands** (`.claude/commands/`)
 
@@ -67,7 +72,7 @@ See **[AGENTS.md](./AGENTS.md#spec-kit-workflow)** for the complete workflow gui
 **Skills** (`.codex/skills/`)
 
 - `claude-ask`, `claude-exec`, `claude-review`, `claude-search` - Claude Code integration (native)
-- `copilot-*`, `speckit-*` - Symlinks to `.claude/skills/`
+- `copilot-*`, `gemini-*`, `speckit-*` - Symlinks to `.claude/skills/`
 
 **Prompts** (`.codex/prompts/`)
 
@@ -87,17 +92,25 @@ See **[AGENTS.md](./AGENTS.md#spec-kit-workflow)** for the complete workflow gui
 
 - Symlinks to both `.claude/skills/` and `.codex/skills/`
 
+### Gemini CLI
+
+**Commands** (`.gemini/commands/`)
+
+- `speckit.*.toml` - Command prompt files for Spec Kit workflow
+
 ## Structure
 
 ```
 .
 ├── .claude/
-│   ├── agents/          # Claude Code agent definitions (codex-*)
+│   ├── agents/          # Claude Code agent definitions (codex-*, copilot-*, gemini-*)
 │   ├── commands/        # Claude Code command prompts (speckit.*)
-│   └── skills/          # Claude Code skill directories (copilot-*, codex-*, speckit-*)
+│   └── skills/          # Claude Code skill directories (copilot-*, codex-*, gemini-*, speckit-*)
 ├── .codex/
 │   ├── prompts/         # Codex CLI prompt files (speckit.*)
 │   └── skills/          # Codex CLI skills (claude-* native, others symlinked)
+├── .gemini/
+│   └── commands/        # Gemini CLI prompt files (speckit.*.toml)
 ├── .github/
 │   ├── agents/          # GitHub automation agents (speckit.*.agent.md)
 │   ├── prompts/         # GitHub workflow prompts (speckit.*.prompt.md)
@@ -126,6 +139,7 @@ Install and authenticate the required CLI tools before running skills:
 - **OpenAI Codex CLI** - For `codex-*` skills
   - Install: https://developers.openai.com/codex/cli/
   - Auth: ChatGPT subscription or API key in `~/.codex/config.toml`
+- **Gemini CLI** - For `gemini-*` skills and `.gemini/commands/`
 - **Spec Kit** - Implemented via skills in this repository (no separate installation)
 
 ## Usage notes

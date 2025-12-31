@@ -6,14 +6,18 @@ Guidelines for editing agent definitions, skills, and prompts in this repository
 
 ### Claude Code Runtime (`.claude/`)
 
-- `.claude/agents/` - Agent definitions for autonomous task execution (codex-ask, codex-exec, codex-review, codex-search)
+- `.claude/agents/` - Agent definitions for autonomous task execution (codex-_, copilot-_, gemini-\*)
 - `.claude/commands/` - Command prompt files for Spec Kit workflow (speckit.\*.md)
-- `.claude/skills/` - Skill directories with skill.yaml + SKILL.md (copilot-_, codex-_, speckit-\*)
+- `.claude/skills/` - Skill directories with skill.yaml + SKILL.md (copilot-_, codex-_, gemini-\_, speckit-\*)
 
 ### Codex CLI Runtime (`.codex/`)
 
 - `.codex/prompts/` - Prompt files for Spec Kit workflow (speckit.\*.md)
-- `.codex/skills/` - Native claude-\* skills + symlinks to .claude/skills/ for others
+- `.codex/skills/` - Native claude-\* skills + symlinks to .claude/skills/ for others (copilot-_, gemini-_, speckit-\*)
+
+### Gemini CLI Runtime (`.gemini/`)
+
+- `.gemini/commands/` - Command prompt files for Spec Kit workflow (speckit.\*.toml)
 
 ### GitHub Actions Runtime (`.github/`)
 
@@ -84,12 +88,12 @@ This repository uses symlinks to share skills across runtimes:
 
 **Source Skills** (`.claude/skills/`)
 
-- Primary location for copilot-_, codex-_, and speckit-\* skills
+- Primary location for copilot-_, codex-_, gemini-\_, and speckit-\* skills
 - Contains actual skill directories with skill.yaml and SKILL.md
 
 **Symlinked Skills**
 
-- `.codex/skills/` - Symlinks to copilot-_ and speckit-_ from .claude/skills/
+- `.codex/skills/` - Symlinks to copilot-_, gemini-_, and speckit-\_ from .claude/skills/
 - `.github/skills/` - Symlinks to all skills from both .claude and .codex
 
 **Benefits**
@@ -102,7 +106,7 @@ This repository uses symlinks to share skills across runtimes:
 
 1. Create/edit skills in their primary location:
    - claude-\* → `.codex/skills/` (native)
-   - copilot-_, codex-_, speckit-\* → `.claude/skills/` (native)
+   - copilot-_, codex-_, gemini-\_, speckit-\* → `.claude/skills/` (native)
 2. Create symlinks as needed:
    ```bash
    ln -s ../../.claude/skills/speckit-example .codex/skills/speckit-example
@@ -117,7 +121,7 @@ This repository uses symlinks to share skills across runtimes:
 - Verify symlinks are not broken: `find . -xtype l` (should return nothing)
 - When adding/renaming agents or prompts, update indexes:
   - `README.md` - Skills by runtime section
-  - `AGENTS.md` - Project structure and Codex CLI Agents sections
+  - `AGENTS.md` - Project structure and CLI Agents sections
 
 ## Commit & PR Guidelines
 
@@ -270,6 +274,54 @@ language = "typescript"
 ├── codex-exec.md    # Execution agent
 ├── codex-review.md  # Code review agent
 └── codex-search.md  # Web search agent
+```
+
+## Copilot CLI Agents
+
+Specialized Claude Code agents that integrate GitHub Copilot CLI capabilities for autonomous development tasks.
+
+### Available Agents
+
+**copilot-ask** - Answer questions about code (read-only)
+
+**copilot-exec** - Execute development tasks with code modifications
+
+**copilot-review** - Perform comprehensive code reviews (read-only)
+
+**copilot-search** - Search the web for current information (read-only)
+
+### Agent Files
+
+```
+.claude/agents/
+├── copilot-ask.md     # Question-answering agent
+├── copilot-exec.md    # Execution agent
+├── copilot-review.md  # Code review agent
+└── copilot-search.md  # Web search agent
+```
+
+## Gemini CLI Agents
+
+Specialized Claude Code agents that integrate Gemini CLI capabilities for autonomous development tasks.
+
+### Available Agents
+
+**gemini-ask** - Answer questions about code (read-only)
+
+**gemini-exec** - Execute development tasks with code modifications
+
+**gemini-review** - Perform comprehensive code reviews (read-only)
+
+**gemini-search** - Search the web for current information (read-only)
+
+### Agent Files
+
+```
+.claude/agents/
+├── gemini-ask.md     # Question-answering agent
+├── gemini-exec.md    # Execution agent
+├── gemini-review.md  # Code review agent
+└── gemini-search.md  # Web search agent
 ```
 
 ## Spec Kit Workflow
