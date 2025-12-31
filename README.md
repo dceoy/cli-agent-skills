@@ -6,12 +6,26 @@ Cross-platform agent skills and prompts for AI coding assistants.
 
 This repository provides reusable skills and templates for multiple agent runtimes:
 
-- Claude Code
-- GitHub Copilot CLI
-- Codex CLI
-- Spec Kit
+- **Claude Code** - Skills in `.claude/skills/`
+- **GitHub Copilot CLI** - Skills in `.codex/skills/` (copilot-\*)
+- **Codex CLI** - Skills in `.codex/skills/` (codex-_, claude-_)
+- **Spec Kit** - Spec-Driven Development workflow skills (`speckit-*`)
 
-Each skill lives in a small folder with a `SKILL.md` that documents how to run it.
+Each skill lives in a folder with a `SKILL.md` that documents how to run it.
+
+### Spec Kit Workflow
+
+This repository implements the **Spec-Driven Development** methodology via Spec Kit skills. The canonical workflow:
+
+1. **Constitution** → Define project principles
+2. **Specify** → Capture feature requirements (what/why)
+3. **Clarify** (optional) → Resolve ambiguities
+4. **Plan** → Create technical strategy (how)
+5. **Analyze** (optional) → Validate consistency
+6. **Tasks** → Generate ordered work items
+7. **Implement** → Execute development
+
+See **[SPEC-KIT-WORKFLOW.md](./SPEC-KIT-WORKFLOW.md)** for the complete workflow guide with examples and best practices.
 
 ## Quick start
 
@@ -73,7 +87,26 @@ Refer to each tool's official documentation for installation and login steps.
 
 - Skills do not always auto-run; use your agent's skill invocation flow or ask for the skill explicitly.
 - If a skill fails, open its `SKILL.md` and verify prerequisites and command syntax.
-- For Spec Kit, follow the skill sequence described in the `speckit-*` skills.
+- For Spec Kit workflows, see [SPEC-KIT-WORKFLOW.md](./SPEC-KIT-WORKFLOW.md) for the canonical command sequence and usage guide.
+
+### Quick Spec Kit Example
+
+```bash
+# 1. First time: establish project principles
+/speckit.constitution
+
+# 2. For each feature: specify what to build
+/speckit.specify Add user authentication with email login
+
+# 3. Plan how to build it
+/speckit.plan I'm using Node.js with Express and PostgreSQL
+
+# 4. Break into tasks
+/speckit.tasks
+
+# 5. Implement
+/speckit.implement
+```
 
 ## Troubleshooting
 

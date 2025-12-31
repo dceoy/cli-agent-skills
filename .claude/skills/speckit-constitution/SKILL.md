@@ -82,3 +82,8 @@ After creating/updating constitution:
 - **Specify** features with `speckit-specify` (aligned with principles)
 - **Plan** implementations with `speckit-plan` (validates against constitution)
 - **Review** existing specs for compliance with new principles
+
+## See Also
+
+- **[SPEC-KIT-WORKFLOW.md](../../../SPEC-KIT-WORKFLOW.md)** - Complete Spec-Driven Development workflow guide
+- **[Phase 1: Establish Principles](../../../SPEC-KIT-WORKFLOW.md#phase-1-establish-principles-speckitconstitution)** - Detailed constitution guide

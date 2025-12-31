@@ -67,6 +67,11 @@ Generate actionable, dependency-ordered tasks from design artifacts. Third step 
 
 After creating tasks.md:
 
-- **Analyze** for consistency with `speckit-analyze`
+- **Analyze** for consistency with `speckit-analyze` (optional)
 - **Start implementation** with `speckit-implement`
 - **Convert to issues** with `speckit-taskstoissues` (optional)
+
+## See Also
+
+- **[SPEC-KIT-WORKFLOW.md](../../../SPEC-KIT-WORKFLOW.md)** - Complete Spec-Driven Development workflow guide
+- **[Phase 6: Generate Tasks](../../../SPEC-KIT-WORKFLOW.md#phase-6-generate-tasks-speckittasks)** - Detailed task generation guide

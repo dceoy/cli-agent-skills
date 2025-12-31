@@ -62,3 +62,8 @@ After creating plan.md:
 - **Generate tasks** with `speckit-tasks`
 - **Analyze** for consistency with `speckit-analyze`
 - **Create checklist** for quality validation
+
+## See Also
+
+- **[SPEC-KIT-WORKFLOW.md](../../../SPEC-KIT-WORKFLOW.md)** - Complete Spec-Driven Development workflow guide
+- **[Phase 4: Plan Implementation](../../../SPEC-KIT-WORKFLOW.md#phase-4-plan-implementation-speckitplan)** - Detailed planning guide
