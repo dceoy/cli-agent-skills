@@ -1,6 +1,6 @@
 # ai-coding-agent-skills
 
-Cross-platform agent skills and prompts for AI coding assistants.
+Agent skills for AI coders
 
 ## Overview
 
