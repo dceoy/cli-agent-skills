@@ -60,32 +60,6 @@ All skills are located in `skills/` and symlinked into runtime-specific director
 - `gemini-review` - Perform code reviews (read-only)
 - `gemini-search` - Search the web for current information (read-only)
 
-### GitHub CLI Issue Skills
-
-- `gh-issue-list` - List and filter issues by state, author, labels, milestone
-- `gh-issue-view` - View issue details, comments, and JSON fields
-- `gh-issue-create` - Create issues with title, body, labels, assignees, projects
-- `gh-issue-edit` - Edit issue metadata (title, body, labels, assignees)
-- `gh-issue-close` - Close issues as completed or not planned
-- `gh-issue-reopen` - Reopen closed issues with optional comment
-- `gh-issue-comment` - Add, edit, or delete issue comments
-- `gh-issue-develop` - Create or list branches linked to an issue
-
-### GitHub CLI Pull Request Skills
-
-- `gh-pr-list` - List and filter PRs by state, author, labels, search query
-- `gh-pr-view` - View PR details, comments, and JSON fields
-- `gh-pr-create` - Create PRs with title, body, reviewers, labels, projects
-- `gh-pr-edit` - Edit PR metadata (title, body, labels, reviewers, assignees)
-- `gh-pr-merge` - Merge PRs with merge, squash, or rebase strategies
-- `gh-pr-close` - Close PRs without merging, optionally delete branch
-- `gh-pr-ready` - Mark PR as ready for review or convert back to draft
-- `gh-pr-review` - Submit reviews (approve, comment, request changes)
-- `gh-pr-checks` - View CI/CD check status, watch until completion
-- `gh-pr-diff` - View PR code changes, file list, or patch format
-- `gh-pr-checkout` - Check out a PR locally for testing or review
-- `gh-pr-comment` - Add, edit, or delete PR comments
-
 ## Agents
 
 Agents are located in `.claude/agents/` and provide unified interfaces for each CLI tool.
@@ -106,9 +80,7 @@ See [AGENTS.md](./AGENTS.md) for detailed agent documentation.
 │   ├── claude-*/            # Claude Code integration skills
 │   ├── codex-*/             # Codex CLI integration skills
 │   ├── copilot-*/           # Copilot CLI integration skills
-│   ├── gemini-*/            # Gemini CLI integration skills
-│   ├── gh-issue-*/          # GitHub issue skills
-│   └── gh-pr-*/             # GitHub pull request skills
+│   └── gemini-*/            # Gemini CLI integration skills
 ├── .claude/
 │   ├── agents/              # Agent definitions (codex.md, copilot.md, gemini.md)
 │   └── skills -> ../skills
@@ -142,10 +114,6 @@ Install and authenticate the required CLI tools before running skills:
 - **Gemini CLI** - For `gemini-*` skills
   - Install: <https://github.com/google-gemini/gemini-cli>
   - Auth: Google account or API key
-
-- **GitHub CLI** - For `gh-*` skills
-  - Install: <https://cli.github.com/>
-  - Auth: `gh auth login`
 
 ## Usage notes
 
