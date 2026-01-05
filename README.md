@@ -4,29 +4,14 @@ Agent skills for AI coders
 
 ## Overview
 
-This repository provides reusable skills and templates for multiple agent runtimes:
+This repository provides reusable skills and templates for multiple agent runtimes, backed by a shared `skills/` directory:
 
-- **Claude Code** - Skills in `.claude/skills/`, agents in `.claude/agents/`, commands in `.claude/commands/`
-- **Codex CLI** - Skills in `.codex/skills/` (claude-\*), prompts in `.codex/prompts/`
-- **GitHub Copilot CLI** - Agent files in `.github/agents/`, prompt files in `.github/prompts/`, skills in `.github/skills/` (symlinks)
-- **Gemini CLI** - Skills in `.claude/skills/` (gemini-\*), commands in `.gemini/commands/`
-- **Spec Kit** - Spec-Driven Development workflow skills (`speckit-*`) across all runtimes
+- **Claude Code** - Agents in `.claude/agents/`; skills surfaced via `.claude/skills -> ../skills`
+- **Codex CLI** - Skills surfaced via `.codex/skills -> ../skills`
+- **GitHub Copilot CLI** - Agents/prompts in `.github/agents/`, `.github/prompts/`; skills surfaced via `.github/skills -> ../skills`
+- **Gemini CLI** - Skills surfaced via `.claude/skills -> ../skills`
 
-Each skill directory contains a `skill.yaml` configuration and `SKILL.md` documentation.
-
-### Spec Kit Workflow
-
-This repository implements the **Spec-Driven Development** methodology via Spec Kit skills. The canonical workflow:
-
-1. **Constitution** → Define project principles
-2. **Specify** → Capture feature requirements (what/why)
-3. **Clarify** (optional) → Resolve ambiguities
-4. **Plan** → Create technical strategy (how)
-5. **Analyze** (optional) → Validate consistency
-6. **Tasks** → Generate ordered work items
-7. **Implement** → Execute development
-
-See **[AGENTS.md](./AGENTS.md#spec-kit-workflow)** for the complete workflow guide with examples and best practices.
+Each skill directory contains a `SKILL.md` documentation file.
 
 ## Quick start
 
@@ -36,11 +21,11 @@ See **[AGENTS.md](./AGENTS.md#spec-kit-workflow)** for the complete workflow gui
    git clone git@github.com:dceoy/ai-coding-agent-skills.git
    ```
 
-2. Pick a runtime and explore the skills:
-   - **Claude Code:** `.claude/skills/` (skill directories), `.claude/agents/` (agent definitions), `.claude/commands/` (command prompts)
-   - **Codex CLI:** `.codex/skills/` (skill directories), `.codex/prompts/` (prompt files)
+2. Pick a runtime and explore the skills in `skills/` (symlinked into each runtime directory):
+   - **Claude Code:** `.claude/agents/` (agent definitions), `.claude/commands/` (command prompts), `.claude/skills -> ../skills`
+   - **Codex CLI:** `.codex/skills -> ../skills`, `.codex/prompts/` (prompt files)
    - **Gemini CLI:** `.gemini/commands/` (prompt files)
-   - **GitHub Copilot CLI:** `.github/agents/`, `.github/prompts/`, `.github/skills/`
+   - **GitHub Copilot CLI:** `.github/agents/`, `.github/prompts/`, `.github/skills -> ../skills`
 
 3. Open a skill directory and read the `SKILL.md` to learn how to invoke it.
 
@@ -48,12 +33,13 @@ See **[AGENTS.md](./AGENTS.md#spec-kit-workflow)** for the complete workflow gui
 
 ### Claude Code
 
-**Skills** (`.claude/skills/`)
+**Skills** (`skills/`, symlinked into `.claude/skills/`)
 
 - `copilot-ask`, `copilot-exec`, `copilot-review`, `copilot-search` - GitHub Copilot CLI integration
 - `codex-ask`, `codex-exec`, `codex-review`, `codex-search` - OpenAI Codex CLI integration
 - `gemini-ask`, `gemini-exec`, `gemini-review`, `gemini-search` - Gemini CLI integration
-- `speckit-analyze`, `speckit-checklist`, `speckit-clarify`, `speckit-constitution`, `speckit-implement`, `speckit-plan`, `speckit-specify`, `speckit-tasks`, `speckit-taskstoissues` - Spec Kit workflow
+- `gh-issue-close`, `gh-issue-comment`, `gh-issue-create`, `gh-issue-develop`, `gh-issue-edit`, `gh-issue-view` - GitHub Issues helpers
+- `gh-pr-create`, `gh-pr-merge`, `gh-pr-ready`, `gh-pr-review`, `gh-pr-view` - Pull request helpers
 
 **Agents** (`.claude/agents/`)
 
@@ -62,63 +48,33 @@ See **[AGENTS.md](./AGENTS.md#spec-kit-workflow)** for the complete workflow gui
 - `gemini.md` - Unified Gemini CLI agent (ask, exec, review, search modes)
 - See [AGENTS.md](./AGENTS.md) for agent documentation
 
-**Commands** (`.claude/commands/`)
-
-- `speckit.*.md` - Command prompts for Spec Kit workflow
-
 ### Codex CLI
 
-**Skills** (`.codex/skills/`)
+**Skills** (`skills/`, symlinked into `.codex/skills/`)
 
 - `claude-ask`, `claude-exec`, `claude-review`, `claude-search` - Claude Code integration (native)
-- `copilot-*`, `gemini-*`, `speckit-*` - Symlinks to `.claude/skills/`
-
-**Prompts** (`.codex/prompts/`)
-
-- `speckit.*.md` - Prompt files for Spec Kit workflow
+- `copilot-*`, `gemini-*`, `gh-*` - Shared via `skills/`
 
 ### GitHub Copilot CLI
 
-**Agents** (`.github/agents/`)
+**Skills** (`skills/`, symlinked into `.github/skills/`)
 
-- `speckit.*.agent.md` - Agent definitions for Copilot CLI
-
-**Prompts** (`.github/prompts/`)
-
-- `speckit.*.prompt.md` - Prompt files for Copilot CLI
-
-**Skills** (`.github/skills/`)
-
-- Symlinks to both `.claude/skills/` and `.codex/skills/`
-
-### Gemini CLI
-
-**Commands** (`.gemini/commands/`)
-
-- `speckit.*.toml` - Command prompt files for Spec Kit workflow
+- Shared via `skills/`
 
 ## Structure
 
 ```
 .
+├── skills/              # Shared skill directories (source of truth for all runtimes)
 ├── .claude/
 │   ├── agents/          # Claude Code agent definitions (codex-*, copilot-*, gemini-*)
-│   ├── commands/        # Claude Code command prompts (speckit.*)
-│   └── skills/          # Claude Code skill directories (copilot-*, codex-*, gemini-*, speckit-*)
+│   └── skills -> ../skills
 ├── .codex/
-│   ├── prompts/         # Codex CLI prompt files (speckit.*)
-│   └── skills/          # Codex CLI skills (claude-* native, others symlinked)
-├── .gemini/
-│   └── commands/        # Gemini CLI prompt files (speckit.*.toml)
+│   └── skills -> ../skills
 ├── .github/
-│   ├── agents/          # GitHub Copilot CLI agents (speckit.*.agent.md)
-│   ├── prompts/         # GitHub Copilot CLI prompts (speckit.*.prompt.md)
-│   ├── skills/          # GitHub Copilot CLI skills (symlinks to .claude and .codex)
+│   ├── skills -> ../skills
 │   └── workflows/       # CI workflows (ci.yml)
-└── .specify/            # Spec Kit templates and memory files
-    ├── memory/
-    ├── scripts/
-    └── templates/       # spec, plan, tasks, checklist, agent-file templates
+└── ...
 ```
 
 ## Prerequisites
@@ -134,33 +90,12 @@ Install and authenticate the required CLI tools before running skills:
 - **OpenAI Codex CLI** - For `codex-*` skills
   - Install: https://developers.openai.com/codex/cli/
   - Auth: ChatGPT subscription or API key in `~/.codex/config.toml`
-- **Gemini CLI** - For `gemini-*` skills and `.gemini/commands/`
-- **Spec Kit** - Implemented via skills in this repository (no separate installation)
+- **Gemini CLI** - For `gemini-*` skills
 
 ## Usage notes
 
 - Skills do not always auto-run; use your agent's skill invocation flow or ask for the skill explicitly.
 - If a skill fails, open its `SKILL.md` and verify prerequisites and command syntax.
-- For Spec Kit workflows, see [AGENTS.md](./AGENTS.md#spec-kit-workflow) for the canonical command sequence and usage guide.
-
-### Quick Spec Kit Example
-
-```bash
-# 1. First time: establish project principles
-/speckit.constitution
-
-# 2. For each feature: specify what to build
-/speckit.specify Add user authentication with email login
-
-# 3. Plan how to build it
-/speckit.plan I'm using Node.js with Express and PostgreSQL
-
-# 4. Break into tasks
-/speckit.tasks
-
-# 5. Implement
-/speckit.implement
-```
 
 ## Troubleshooting
 
@@ -168,7 +103,7 @@ Install and authenticate the required CLI tools before running skills:
 
 - Confirm the skill directory exists in the expected runtime location
 - Check that skill name matches exactly (case-sensitive)
-- Verify `skill.yaml` exists in the skill directory
+- Verify the `SKILL.md` documentation is present
 
 **CLI not in PATH**
 
@@ -186,8 +121,8 @@ Install and authenticate the required CLI tools before running skills:
 
 **Symlink issues**
 
-- Some skills use symlinks (`.codex/skills/`, `.github/skills/`)
-- If broken, verify source directories exist in `.claude/skills/`
+- Skill directories are shared from `skills/` via symlinks (`.claude/skills`, `.codex/skills`, `.github/skills`)
+- If broken, recreate the symlink or ensure `skills/` exists
 - On Windows, ensure symlink support is enabled
 
 ## Contributing
