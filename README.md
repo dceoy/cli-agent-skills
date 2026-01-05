@@ -38,8 +38,8 @@ Each skill directory contains a `SKILL.md` documentation file.
 - `copilot-ask`, `copilot-exec`, `copilot-review`, `copilot-search` - GitHub Copilot CLI integration
 - `codex-ask`, `codex-exec`, `codex-review`, `codex-search` - OpenAI Codex CLI integration
 - `gemini-ask`, `gemini-exec`, `gemini-review`, `gemini-search` - Gemini CLI integration
-- `gh-issue-close`, `gh-issue-comment`, `gh-issue-create`, `gh-issue-develop`, `gh-issue-edit`, `gh-issue-view` - GitHub Issues helpers
-- `gh-pr-create`, `gh-pr-merge`, `gh-pr-ready`, `gh-pr-review`, `gh-pr-view` - Pull request helpers
+- `gh-issue-close`, `gh-issue-comment`, `gh-issue-create`, `gh-issue-develop`, `gh-issue-edit`, `gh-issue-list`, `gh-issue-reopen`, `gh-issue-view` - GitHub Issues helpers
+- `gh-pr-checks`, `gh-pr-checkout`, `gh-pr-close`, `gh-pr-comment`, `gh-pr-create`, `gh-pr-diff`, `gh-pr-edit`, `gh-pr-list`, `gh-pr-merge`, `gh-pr-ready`, `gh-pr-review`, `gh-pr-view` - Pull request helpers
 
 **Agents** (`.claude/agents/`)
 
