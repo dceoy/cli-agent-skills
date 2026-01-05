@@ -22,6 +22,25 @@ Guidelines for editing agent definitions, skills, and prompts in this repository
 - `.github/skills/` - Symlink to `../skills/`
 - `.github/workflows/` - CI workflow definitions (ci.yml)
 
+### Repository Layout
+
+```
+.
+├── skills/                  # Shared skill directories (source of truth)
+├── .claude/
+│   ├── agents/              # Agent definitions (codex.md, copilot.md, gemini.md)
+│   └── skills -> ../skills
+├── .codex/
+│   └── skills -> ../skills
+├── .github/
+│   ├── skills -> ../skills
+│   └── workflows/           # CI workflows (ci.yml)
+├── AGENTS.md                # Agent repository guidelines (canonical; edit this file)
+├── CLAUDE.md -> AGENTS.md   # Symlink for Claude Code
+├── README.md                # Repository overview
+└── LICENSE
+```
+
 ### Root Documentation
 
 - `README.md` - Repository overview and quick start
@@ -35,7 +54,13 @@ Guidelines for editing agent definitions, skills, and prompts in this repository
 
 ## Prerequisites
 
-Install and authenticate the required CLI tools before running skills. See `README.md` for the current prerequisites and links.
+Install and authenticate the required CLI tools before running skills:
+
+- **Claude Code** - <https://docs.anthropic.com/en/docs/claude-code>
+- **GitHub Copilot CLI** - <https://docs.github.com/en/copilot/github-copilot-in-the-cli>
+- **OpenAI Codex CLI** - <https://github.com/openai/codex>
+- **Gemini CLI** - <https://github.com/google-gemini/gemini-cli>
+- **GitHub CLI (`gh`)** - <https://cli.github.com/>
 
 ## Coding Style & Naming
 
@@ -87,13 +112,24 @@ This repository uses symlinks to share skills across runtimes:
 1. Create/edit skills in `skills/` (source of truth)
 2. Ensure runtime directories remain symlinked to `../skills/` (e.g., `ls -la .claude/skills`)
 
+## Skills Overview
+
+Shared `skills/` directory (symlinked into `.claude/skills`, `.codex/skills`, `.github/skills`):
+
+- **Claude Code**: `claude-ask`, `claude-exec`, `claude-review`, `claude-search`
+- **OpenAI Codex CLI**: `codex-ask`, `codex-exec`, `codex-review`, `codex-search`
+- **GitHub Copilot CLI**: `copilot-ask`, `copilot-exec`, `copilot-review`, `copilot-search`
+- **Gemini CLI**: `gemini-ask`, `gemini-exec`, `gemini-review`, `gemini-search`
+- **GitHub Issues skills**: `gh-issue-close`, `gh-issue-comment`, `gh-issue-create`, `gh-issue-develop`, `gh-issue-edit`, `gh-issue-list`, `gh-issue-reopen`, `gh-issue-view`
+- **GitHub Pull Request skills**: `gh-pr-checks`, `gh-pr-checkout`, `gh-pr-close`, `gh-pr-comment`, `gh-pr-create`, `gh-pr-diff`, `gh-pr-edit`, `gh-pr-list`, `gh-pr-merge`, `gh-pr-ready`, `gh-pr-review`, `gh-pr-view`
+
 ## Validation
 
 - Review diffs with `git diff` before committing
 - Check that Markdown renders cleanly in GitHub preview
 - Verify symlinks are not broken: `find . -xtype l` (should return nothing)
 - When adding/renaming agents or skills, update indexes:
-  - `README.md` - Skills by runtime section
+  - `README.md` - Skills and structure sections
   - `AGENTS.md` - Project structure and CLI Agents sections
 
 ## Commit & Pull Request Guidelines
@@ -286,33 +322,33 @@ Skills for GitHub CLI (`gh`) operations on issues and pull requests. These are s
 
 ### Pull Request Skills
 
-| Skill | Description |
-|-------|-------------|
-| `gh-pr-list` | List and filter PRs by state, author, labels, search query |
-| `gh-pr-view` | View PR details, comments, and JSON fields |
-| `gh-pr-create` | Create PRs with title, body, reviewers, labels, projects |
-| `gh-pr-edit` | Edit PR metadata (title, body, labels, reviewers, assignees) |
-| `gh-pr-merge` | Merge PRs with merge, squash, or rebase strategies |
-| `gh-pr-close` | Close PRs without merging, optionally delete branch |
-| `gh-pr-ready` | Mark PR as ready for review or convert back to draft |
-| `gh-pr-review` | Submit reviews (approve, comment, request changes) |
-| `gh-pr-checks` | View CI/CD check status, watch until completion |
-| `gh-pr-diff` | View PR code changes, file list, or patch format |
-| `gh-pr-checkout` | Check out a PR locally for testing or review |
-| `gh-pr-comment` | Add, edit, or delete PR comments |
+| Skill            | Description                                                  |
+| ---------------- | ------------------------------------------------------------ |
+| `gh-pr-list`     | List and filter PRs by state, author, labels, search query   |
+| `gh-pr-view`     | View PR details, comments, and JSON fields                   |
+| `gh-pr-create`   | Create PRs with title, body, reviewers, labels, projects     |
+| `gh-pr-edit`     | Edit PR metadata (title, body, labels, reviewers, assignees) |
+| `gh-pr-merge`    | Merge PRs with merge, squash, or rebase strategies           |
+| `gh-pr-close`    | Close PRs without merging, optionally delete branch          |
+| `gh-pr-ready`    | Mark PR as ready for review or convert back to draft         |
+| `gh-pr-review`   | Submit reviews (approve, comment, request changes)           |
+| `gh-pr-checks`   | View CI/CD check status, watch until completion              |
+| `gh-pr-diff`     | View PR code changes, file list, or patch format             |
+| `gh-pr-checkout` | Check out a PR locally for testing or review                 |
+| `gh-pr-comment`  | Add, edit, or delete PR comments                             |
 
 ### Issue Skills
 
-| Skill | Description |
-|-------|-------------|
-| `gh-issue-list` | List and filter issues by state, author, labels, milestone |
-| `gh-issue-view` | View issue details, comments, and JSON fields |
-| `gh-issue-create` | Create issues with title, body, labels, assignees, projects |
-| `gh-issue-edit` | Edit issue metadata (title, body, labels, assignees) |
-| `gh-issue-close` | Close issues as completed or not planned |
-| `gh-issue-reopen` | Reopen closed issues with optional comment |
-| `gh-issue-comment` | Add, edit, or delete issue comments |
-| `gh-issue-develop` | Create or list branches linked to an issue |
+| Skill              | Description                                                 |
+| ------------------ | ----------------------------------------------------------- |
+| `gh-issue-list`    | List and filter issues by state, author, labels, milestone  |
+| `gh-issue-view`    | View issue details, comments, and JSON fields               |
+| `gh-issue-create`  | Create issues with title, body, labels, assignees, projects |
+| `gh-issue-edit`    | Edit issue metadata (title, body, labels, assignees)        |
+| `gh-issue-close`   | Close issues as completed or not planned                    |
+| `gh-issue-reopen`  | Reopen closed issues with optional comment                  |
+| `gh-issue-comment` | Add, edit, or delete issue comments                         |
+| `gh-issue-develop` | Create or list branches linked to an issue                  |
 
 ### Prerequisites
 

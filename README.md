@@ -4,14 +4,14 @@ Agent skills for AI coders
 
 ## Overview
 
-This repository provides reusable skills and templates for multiple agent runtimes, backed by a shared `skills/` directory:
+Single-source, reusable skills and agent prompts shared across AI coding runtimes. The `skills/` directory is the source of truth and is symlinked into each runtime:
 
-- **Claude Code** - Agents in `.claude/agents/`; skills surfaced via `.claude/skills -> ../skills`
-- **Codex CLI** - Skills surfaced via `.codex/skills -> ../skills`
-- **GitHub Copilot CLI** - Agents/prompts in `.github/agents/`, `.github/prompts/`; skills surfaced via `.github/skills -> ../skills`
-- **Gemini CLI** - Skills surfaced via `.claude/skills -> ../skills`
+- **Claude Code** — Agents in `.claude/agents/`; skills via `.claude/skills -> ../skills`
+- **GitHub Copilot CLI** — Skills via `.github/skills -> ../skills`
+- **OpenAI Codex CLI** — Skills via `.codex/skills -> ../skills`
+- **Gemini CLI** — Skills via symlinked directories
 
-Each skill directory contains a `SKILL.md` documentation file.
+Each skill directory contains a `SKILL.md` that documents prerequisites and invocation.
 
 ## Quick start
 
@@ -22,75 +22,130 @@ Each skill directory contains a `SKILL.md` documentation file.
    ```
 
 2. Pick a runtime and explore the skills in `skills/` (symlinked into each runtime directory):
-   - **Claude Code:** `.claude/agents/` (agent definitions), `.claude/commands/` (command prompts), `.claude/skills -> ../skills`
-   - **Codex CLI:** `.codex/skills -> ../skills`, `.codex/prompts/` (prompt files)
-   - **Gemini CLI:** `.gemini/commands/` (prompt files)
-   - **GitHub Copilot CLI:** `.github/agents/`, `.github/prompts/`, `.github/skills -> ../skills`
+   - **Claude Code:** `.claude/agents/` (agent definitions), `.claude/skills -> ../skills`
+   - **Codex CLI:** `.codex/skills -> ../skills`
+   - **GitHub Copilot CLI:** `.github/skills -> ../skills`
 
 3. Open a skill directory and read the `SKILL.md` to learn how to invoke it.
 
-## Skills by runtime
+## Skills
 
-### Claude Code
+All skills are located in `skills/` and symlinked into runtime-specific directories.
 
-**Skills** (`skills/`, symlinked into `.claude/skills/`)
+### Claude Code Integration
 
-- `copilot-ask`, `copilot-exec`, `copilot-review`, `copilot-search` - GitHub Copilot CLI integration
-- `codex-ask`, `codex-exec`, `codex-review`, `codex-search` - OpenAI Codex CLI integration
-- `gemini-ask`, `gemini-exec`, `gemini-review`, `gemini-search` - Gemini CLI integration
-- `gh-issue-close`, `gh-issue-comment`, `gh-issue-create`, `gh-issue-develop`, `gh-issue-edit`, `gh-issue-list`, `gh-issue-reopen`, `gh-issue-view` - GitHub Issues helpers
-- `gh-pr-checks`, `gh-pr-checkout`, `gh-pr-close`, `gh-pr-comment`, `gh-pr-create`, `gh-pr-diff`, `gh-pr-edit`, `gh-pr-list`, `gh-pr-merge`, `gh-pr-ready`, `gh-pr-review`, `gh-pr-view` - Pull request helpers
+- `claude-ask` - Ask questions about code (read-only)
+- `claude-exec` - Execute development tasks with code modifications
+- `claude-review` - Perform code reviews (read-only)
+- `claude-search` - Search the web for current information (read-only)
 
-**Agents** (`.claude/agents/`)
+### OpenAI Codex CLI Integration
 
-- `codex.md` - Unified Codex CLI agent (ask, exec, review, search modes)
-- `copilot.md` - Unified Copilot CLI agent (ask, exec, review, search modes)
-- `gemini.md` - Unified Gemini CLI agent (ask, exec, review, search modes)
-- See [AGENTS.md](./AGENTS.md) for agent documentation
+- `codex-ask` - Ask questions about code (read-only)
+- `codex-exec` - Execute development tasks with code modifications
+- `codex-review` - Perform code reviews (read-only)
+- `codex-search` - Search the web for current information (read-only)
 
-### Codex CLI
+### GitHub Copilot CLI Integration
 
-**Skills** (`skills/`, symlinked into `.codex/skills/`)
+- `copilot-ask` - Ask questions about code (read-only)
+- `copilot-exec` - Execute development tasks with code modifications
+- `copilot-review` - Perform code reviews (read-only)
+- `copilot-search` - Search the web for current information (read-only)
 
-- `claude-ask`, `claude-exec`, `claude-review`, `claude-search` - Claude Code integration (native)
-- `copilot-*`, `gemini-*`, `gh-*` - Shared via `skills/`
+### Gemini CLI Integration
 
-### GitHub Copilot CLI
+- `gemini-ask` - Ask questions about code (read-only)
+- `gemini-exec` - Execute development tasks with code modifications
+- `gemini-review` - Perform code reviews (read-only)
+- `gemini-search` - Search the web for current information (read-only)
 
-**Skills** (`skills/`, symlinked into `.github/skills/`)
+### GitHub CLI Issue Skills
 
-- Shared via `skills/`
+- `gh-issue-list` - List and filter issues by state, author, labels, milestone
+- `gh-issue-view` - View issue details, comments, and JSON fields
+- `gh-issue-create` - Create issues with title, body, labels, assignees, projects
+- `gh-issue-edit` - Edit issue metadata (title, body, labels, assignees)
+- `gh-issue-close` - Close issues as completed or not planned
+- `gh-issue-reopen` - Reopen closed issues with optional comment
+- `gh-issue-comment` - Add, edit, or delete issue comments
+- `gh-issue-develop` - Create or list branches linked to an issue
+
+### GitHub CLI Pull Request Skills
+
+- `gh-pr-list` - List and filter PRs by state, author, labels, search query
+- `gh-pr-view` - View PR details, comments, and JSON fields
+- `gh-pr-create` - Create PRs with title, body, reviewers, labels, projects
+- `gh-pr-edit` - Edit PR metadata (title, body, labels, reviewers, assignees)
+- `gh-pr-merge` - Merge PRs with merge, squash, or rebase strategies
+- `gh-pr-close` - Close PRs without merging, optionally delete branch
+- `gh-pr-ready` - Mark PR as ready for review or convert back to draft
+- `gh-pr-review` - Submit reviews (approve, comment, request changes)
+- `gh-pr-checks` - View CI/CD check status, watch until completion
+- `gh-pr-diff` - View PR code changes, file list, or patch format
+- `gh-pr-checkout` - Check out a PR locally for testing or review
+- `gh-pr-comment` - Add, edit, or delete PR comments
+
+## Agents
+
+Agents are located in `.claude/agents/` and provide unified interfaces for each CLI tool.
+
+| Agent        | Description                                                 |
+| ------------ | ----------------------------------------------------------- |
+| `codex.md`   | Unified Codex CLI agent (ask, exec, review, search modes)   |
+| `copilot.md` | Unified Copilot CLI agent (ask, exec, review, search modes) |
+| `gemini.md`  | Unified Gemini CLI agent (ask, exec, review, search modes)  |
+
+See [AGENTS.md](./AGENTS.md) for detailed agent documentation.
 
 ## Structure
 
 ```
 .
-├── skills/              # Shared skill directories (source of truth for all runtimes)
+├── skills/                  # Shared skill directories (source of truth)
+│   ├── claude-*/            # Claude Code integration skills
+│   ├── codex-*/             # Codex CLI integration skills
+│   ├── copilot-*/           # Copilot CLI integration skills
+│   ├── gemini-*/            # Gemini CLI integration skills
+│   ├── gh-issue-*/          # GitHub issue skills
+│   └── gh-pr-*/             # GitHub pull request skills
 ├── .claude/
-│   ├── agents/          # Claude Code agent definitions (codex-*, copilot-*, gemini-*)
+│   ├── agents/              # Agent definitions (codex.md, copilot.md, gemini.md)
 │   └── skills -> ../skills
 ├── .codex/
 │   └── skills -> ../skills
 ├── .github/
 │   ├── skills -> ../skills
-│   └── workflows/       # CI workflows (ci.yml)
-└── ...
+│   └── workflows/           # CI workflows (ci.yml)
+├── AGENTS.md                # Agent repository guidelines
+├── CLAUDE.md -> AGENTS.md   # Symlink for Claude Code
+├── README.md                # This file
+└── LICENSE
 ```
 
 ## Prerequisites
 
 Install and authenticate the required CLI tools before running skills:
 
-- **Claude Code** - For `.claude/` skills, agents, and commands
-  - Install: https://claude.com/claude-code
+- **Claude Code** - For `claude-*` skills and `.claude/` agents
+  - Install: <https://docs.anthropic.com/en/docs/claude-code>
   - Auth: Follow CLI onboarding flow
+
 - **GitHub Copilot CLI** - For `copilot-*` skills
-  - Install: https://github.com/features/copilot/cli
+  - Install: <https://docs.github.com/en/copilot/github-copilot-in-the-cli>
   - Auth: `gh auth login` (requires GitHub Copilot subscription)
+
 - **OpenAI Codex CLI** - For `codex-*` skills
-  - Install: https://developers.openai.com/codex/cli/
+  - Install: <https://github.com/openai/codex>
   - Auth: ChatGPT subscription or API key in `~/.codex/config.toml`
+
 - **Gemini CLI** - For `gemini-*` skills
+  - Install: <https://github.com/google-gemini/gemini-cli>
+  - Auth: Google account or API key
+
+- **GitHub CLI** - For `gh-*` skills
+  - Install: <https://cli.github.com/>
+  - Auth: `gh auth login`
 
 ## Usage notes
 
@@ -117,7 +172,8 @@ Install and authenticate the required CLI tools before running skills:
   - Claude Code: Follow onboarding flow
   - Copilot CLI: `gh auth login`
   - Codex CLI: `codex` (follow auth flow) or configure `~/.codex/config.toml`
-- Verify active subscription (Copilot, ChatGPT) or API key (Codex)
+  - Gemini CLI: `gemini` (follow auth flow)
+- Verify active subscription (Copilot, ChatGPT) or API key
 
 **Symlink issues**
 
@@ -127,8 +183,8 @@ Install and authenticate the required CLI tools before running skills:
 
 ## Contributing
 
-See `AGENTS.md` for repository guidelines and agent-specific rules.
+See [AGENTS.md](./AGENTS.md) for repository guidelines and agent-specific rules.
 
 ## License
 
-See `LICENSE` for details.
+See [LICENSE](./LICENSE) for details.
