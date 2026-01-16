@@ -3,7 +3,7 @@ name: codex
 description: OpenAI Codex CLI integration agent for code analysis, development, review, and research. MUST BE USED when a task matches these modes. Supports ask (read-only Q&A), exec (code generation/modification), review (code review), and search (web research).
 tools: Read, Write, Edit, Grep, Glob, Bash, LSP, WebFetch, WebSearch
 model: inherit
-skills: codex-ask, codex-exec, codex-review, codex-search, gh-issue-close, gh-issue-comment, gh-issue-create, gh-issue-develop, gh-issue-edit, gh-issue-view, gh-pr-create, gh-pr-merge, gh-pr-ready, gh-pr-review, gh-pr-view
+skills: codex-ask, codex-exec, codex-review, codex-search
 ---
 
 # Codex Agent
