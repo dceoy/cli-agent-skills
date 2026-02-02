@@ -89,7 +89,7 @@ Follow the same conventions."
 **Generate from design files:**
 
 ```bash
-gemini --sandbox --include-files mockup.png,spec.pdf -p "Implement the user profile component:
+gemini --sandbox -p "Implement the user profile component:
 - Follow the exact layout from mockup.png
 - Implement requirements from spec.pdf
 - Use existing component patterns from src/components/
@@ -136,7 +136,7 @@ gemini --sandbox --include-directories src/components -p "Create a UserProfile c
 **Generate from mockups:**
 
 ```bash
-gemini --sandbox --include-files wireframe.png -p "Generate a React component based on this wireframe:
+gemini --sandbox -p "Generate a React component based on wireframe.png:
 - Component structure matching the layout
 - Proper props and state management
 - CSS modules for styling
@@ -147,7 +147,7 @@ gemini --sandbox --include-files wireframe.png -p "Generate a React component ba
 **Generate from PDFs:**
 
 ```bash
-gemini --sandbox --include-files api-spec.pdf -p "Generate TypeScript types and API client from the API specification:
+gemini --sandbox -p "Generate TypeScript types and API client from api-spec.pdf:
 - Create types for all request/response schemas
 - Generate API client with proper error handling
 - Include authentication headers
@@ -203,7 +203,7 @@ gemini --sandbox -p "Add input validation to registration form in src/components
 **Implement from requirements:**
 
 ```bash
-gemini --sandbox --include-files requirements.pdf -p "Implement the caching layer described in requirements.pdf:
+gemini --sandbox -p "Implement the caching layer described in requirements.pdf:
 - Use the architecture specified
 - Follow existing service patterns
 - Include proper error handling
@@ -256,7 +256,7 @@ gemini --sandbox -p "Create integration tests for authentication flow:
 **From wireframes:**
 
 ```bash
-gemini --sandbox --include-files wireframe-1.png,wireframe-2.png,wireframe-3.png -p "Implement the complete user onboarding flow:
+gemini --sandbox -p "Implement the complete user onboarding flow from wireframe-1.png, wireframe-2.png, wireframe-3.png:
 - Step 1 from wireframe-1.png
 - Step 2 from wireframe-2.png
 - Step 3 from wireframe-3.png
@@ -267,7 +267,7 @@ gemini --sandbox --include-files wireframe-1.png,wireframe-2.png,wireframe-3.png
 **From architecture diagrams:**
 
 ```bash
-gemini --sandbox --include-files architecture.png -p "Implement the service layer shown in this diagram:
+gemini --sandbox -p "Implement the service layer shown in architecture.png:
 - Create all services and interfaces
 - Implement dependency injection as shown
 - Add proper error handling
@@ -277,7 +277,7 @@ gemini --sandbox --include-files architecture.png -p "Implement the service laye
 **From design systems:**
 
 ```bash
-gemini --sandbox --include-files design-system.pdf,mockup.png -p "Create components matching the mockup:
+gemini --sandbox -p "Create components matching the mockup.png and design-system.pdf:
 - Follow design-system.pdf for colors, typography, spacing
 - Implement mockup.png layout
 - Use component library patterns
@@ -325,7 +325,7 @@ gemini --sandbox --include-directories src,lib,tests,config -p "Refactor the ent
 - Follow existing code patterns
 - Include proper error handling
 - Use `--include-directories` to provide context
-- Use `--include-files` for design references
+- Reference design files in the prompt (ensure they are in the workspace or included via `--include-directories`)
 - Leverage Google Search for current best practices
 - Use conversation checkpointing for complex tasks
 
@@ -435,7 +435,7 @@ After execution, report:
 
 1. **Be specific**: Include exact requirements and constraints
 2. **Provide context**: Use `--include-directories` for existing patterns
-3. **Use designs**: Attach mockups/PDFs with `--include-files`
+3. **Use designs**: Reference mockups/PDFs in the prompt (ensure they are in the workspace or included via `--include-directories`)
 4. **Break down**: Split complex tasks into phases
 5. **Verify**: Always check changes before committing
 6. **Search**: Use Google Search grounding for current best practices
@@ -461,7 +461,7 @@ gemini --sandbox -p "Create tests for the authentication system"
 ### Multi-Artifact Generation
 
 ```bash
-gemini --sandbox --include-files page-1.png,page-2.png,page-3.png -p "Create complete multi-page form:
+gemini --sandbox -p "Create complete multi-page form from page-1.png, page-2.png, page-3.png:
 - Page 1 from page-1.png (personal info)
 - Page 2 from page-2.png (address)
 - Page 3 from page-3.png (confirmation)
@@ -472,7 +472,7 @@ gemini --sandbox --include-files page-1.png,page-2.png,page-3.png -p "Create com
 ### Integration from Specs
 
 ```bash
-gemini --sandbox --include-files openapi-spec.yaml -p "Generate complete API client from OpenAPI spec:
+gemini --sandbox -p "Generate complete API client from openapi-spec.yaml:
 - TypeScript types for all schemas
 - API methods for all endpoints
 - Error handling and retries

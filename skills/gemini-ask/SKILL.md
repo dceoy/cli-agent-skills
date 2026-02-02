@@ -84,7 +84,7 @@ Do NOT make any changes."
 **Multimodal query (with images, PDFs):**
 
 ```bash
-gemini --sandbox --include-files diagram.png -p "Analyze this architecture diagram and explain:
+gemini --sandbox -p "Analyze the architecture diagram in diagram.png and explain:
 - What components are shown
 - How they interact
 - Which files in the codebase implement these components
@@ -133,7 +133,7 @@ gemini --sandbox -p "What could cause 'Cannot read property of undefined' in Use
 ### Visual Analysis
 
 ```bash
-gemini --sandbox --include-files architecture-diagram.pdf -p "Analyze this architecture diagram:
+gemini --sandbox -p "Analyze the architecture diagram in architecture-diagram.pdf:
 - Identify all components and their responsibilities
 - Explain data flow between components
 - Compare with current implementation in src/
@@ -143,7 +143,7 @@ gemini --sandbox --include-files architecture-diagram.pdf -p "Analyze this archi
 ### Compare Design with Implementation
 
 ```bash
-gemini --sandbox --include-files mockup.png --include-directories src/components -p "Compare the mockup with the actual implementation in src/components/UserProfile:
+gemini --sandbox --include-directories src/components -p "Compare the mockup in mockup.png with the actual implementation in src/components/UserProfile:
 - Visual fidelity
 - Missing features
 - Implementation differences
@@ -200,16 +200,16 @@ Analyze visual documentation:
 
 ```bash
 # Architecture diagrams
-gemini --sandbox --include-files arch.png -p "Explain the architecture shown in this diagram"
+gemini --sandbox -p "Explain the architecture shown in arch.png"
 
 # PDF documentation
-gemini --sandbox --include-files spec.pdf -p "Summarize the API specification and show which parts are implemented"
+gemini --sandbox -p "Summarize the API specification in spec.pdf and show which parts are implemented"
 
 # Screenshots
-gemini --sandbox --include-files screenshot.png -p "What error is shown in this screenshot and what might cause it?"
+gemini --sandbox -p "What error is shown in screenshot.png and what might cause it?"
 
 # Sketches/wireframes
-gemini --sandbox --include-files sketch.jpg -p "What components would be needed to implement this sketch?"
+gemini --sandbox -p "What components would be needed to implement sketch.jpg?"
 ```
 
 ### Google Search Grounding
@@ -249,7 +249,7 @@ gemini --sandbox -p "Now explain how the API layer interacts with the database w
 - Explain "why" not just "what"
 - Mention related files or concepts
 - Verify Gemini returned accurate information
-- Use `--include-files` for visual references
+- Reference local images/PDFs directly in the prompt (ensure they are in the workspace or included via `--include-directories`)
 - Use `--include-directories` to focus on specific code areas
 - Leverage Google Search for current best practices
 
@@ -316,7 +316,7 @@ gemini --sandbox --include-directories src/auth -p "Question about authenticatio
 2. **Include context**: "In the user registration flow..."
 3. **Specify scope**: "Focus on src/components/..." with `--include-directories`
 4. **Request format**: "Explain with code examples and file paths"
-5. **Use multimodal**: Attach diagrams/PDFs with `--include-files`
+5. **Use multimodal**: Reference diagrams/PDFs in the prompt (ensure they are in the workspace or included via `--include-directories`)
 6. **Leverage search**: "Use Google Search to compare with current best practices"
 
 ## Advanced Usage
@@ -324,13 +324,13 @@ gemini --sandbox --include-directories src/auth -p "Question about authenticatio
 ### Multi-File Analysis
 
 ```bash
-gemini --sandbox --include-files src/auth/*.ts,config/*.json -p "Analyze the complete authentication system including all auth files and configuration"
+gemini --sandbox --include-directories src,config -p "Analyze the complete authentication system including src/auth/*.ts and config/*.json"
 ```
 
 ### Compare Multiple Artifacts
 
 ```bash
-gemini --sandbox --include-files design-v1.pdf,design-v2.pdf -p "Compare these two design versions and explain the differences"
+gemini --sandbox -p "Compare design-v1.pdf and design-v2.pdf and explain the differences"
 ```
 
 ### Context-Aware Analysis
