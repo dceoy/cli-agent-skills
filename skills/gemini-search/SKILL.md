@@ -82,7 +82,7 @@ Use Google Search to find the most current and authoritative sources."
 **With multimodal research:**
 
 ```bash
-gemini --sandbox --include-files api-spec.pdf -p "Extract information from this API specification and use Google Search to:
+gemini --sandbox -p "Extract information from api-spec.pdf and use Google Search to:
 - Find official documentation for similar APIs
 - Compare with current best practices
 - Identify any outdated patterns
@@ -226,7 +226,7 @@ Use Google Search to find W3C official documentation."
 ### Multimodal Research
 
 ```bash
-gemini --sandbox --include-files architecture-diagram.png -p "Analyze this architecture diagram and use Google Search to:
+gemini --sandbox -p "Analyze architecture-diagram.png and use Google Search to:
 - Find official documentation for the patterns shown
 - Compare with current best practices for this architecture
 - Find similar reference architectures
@@ -235,7 +235,7 @@ gemini --sandbox --include-files architecture-diagram.png -p "Analyze this archi
 ```
 
 ```bash
-gemini --sandbox --include-files api-spec.pdf -p "Extract API information from this PDF and use Google Search to:
+gemini --sandbox -p "Extract API information from api-spec.pdf and use Google Search to:
 - Find current best practices for this API pattern
 - Compare with modern API design standards
 - Find security recommendations
@@ -262,7 +262,7 @@ gemini --sandbox -p "What's the latest version of Next.js and what are the new f
 **Analyze documentation alongside web search:**
 
 ```bash
-gemini --sandbox --include-files internal-docs.pdf,diagram.png -p "Compare our internal documentation with current industry best practices:
+gemini --sandbox -p "Compare our internal documentation in internal-docs.pdf and diagram.png with current industry best practices:
 - Use Google Search to find current standards
 - Compare our approach with industry patterns
 - Identify gaps or outdated practices
@@ -274,7 +274,7 @@ gemini --sandbox --include-files internal-docs.pdf,diagram.png -p "Compare our i
 **Comprehensive research:**
 
 ```bash
-gemini --sandbox --include-directories docs --include-files spec.pdf -p "Analyze our complete documentation and use Google Search to:
+gemini --sandbox --include-directories docs -p "Analyze our complete documentation (including spec.pdf) and use Google Search to:
 - Find current best practices for our tech stack
 - Compare our patterns with industry standards
 - Identify outdated approaches
@@ -432,7 +432,7 @@ npm install [package]@latest --dry-run
 3. **Request sources**: "Include official documentation and recent comparisons"
 4. **Specify timeframe**: "Current best practices"
 5. **Define scope**: "Focus on security best practices"
-6. **Use multimodal**: Attach PDFs/images with `--include-files`
+6. **Use multimodal**: Reference PDFs/images in the prompt (ensure they are in the workspace or included via `--include-directories`)
 7. **Explicit search**: "Use Google Search to find..."
 
 ## Use Cases
@@ -494,7 +494,7 @@ gemini --sandbox -p "Use Google Search for solutions to 'Module not found' error
 ### Multimodal + Search
 
 ```bash
-gemini --sandbox --include-files error-screenshot.png -p "Analyze this error screenshot and use Google Search to:
+gemini --sandbox -p "Analyze error-screenshot.png and use Google Search to:
 - Identify the error
 - Find common causes
 - Search for solutions
@@ -556,7 +556,7 @@ gemini --sandbox -p "Use Google Search to find the latest OWASP Top 10:
 ### Multimodal Standards Research
 
 ```bash
-gemini --sandbox --include-files current-implementation.pdf -p "Analyze our current security implementation from this PDF and use Google Search to:
+gemini --sandbox -p "Analyze our current security implementation from current-implementation.pdf and use Google Search to:
 - Compare with the latest OWASP Top 10
 - Find gaps in our implementation
 - Search for best practices we're missing

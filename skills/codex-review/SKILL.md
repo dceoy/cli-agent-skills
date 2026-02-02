@@ -291,7 +291,7 @@ Codex CLI is not available. Ensure it's installed and in your PATH.
 ```bash
 #!/bin/bash
 # .git/hooks/pre-commit
-codex --sandbox=read-only exec "Quick review of staged changes for critical issues" --yes
+codex --sandbox=read-only exec "Quick review of staged changes for critical issues"
 exit $?
 ````
 

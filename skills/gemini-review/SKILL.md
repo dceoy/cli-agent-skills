@@ -146,7 +146,7 @@ gemini --sandbox --include-directories src -p "Performance review of git diff:
 **Design compliance review (multimodal):**
 
 ```bash
-gemini --sandbox --include-files design-spec.pdf,mockup.png -p "Review code changes for compliance with design:
+gemini --sandbox -p "Review code changes for compliance with design in design-spec.pdf and mockup.png:
 - Compare implementation with mockup.png
 - Verify requirements from design-spec.pdf are met
 - Check for visual/functional discrepancies
@@ -293,7 +293,7 @@ gemini --sandbox --include-directories src,tests -p "Test coverage review:
 ### Design Compliance Review
 
 ```bash
-gemini --sandbox --include-files design.pdf,mockup-1.png,mockup-2.png -p "Review implementation against design:
+gemini --sandbox -p "Review implementation against design.pdf, mockup-1.png, and mockup-2.png:
 - Visual accuracy vs mockups
 - All requirements from design.pdf implemented
 - Responsive behavior matches design
@@ -317,7 +317,7 @@ gemini --sandbox -p "Review authentication implementation. Use Google Search to 
 Compare with design artifacts:
 
 ```bash
-gemini --sandbox --include-files original-design.png -p "Review Dashboard component vs original-design.png:
+gemini --sandbox -p "Review Dashboard component vs original-design.png:
 - Visual fidelity
 - Implementation of all design elements
 - Responsive behavior
@@ -483,7 +483,7 @@ Documentation:
 
 1. **Be specific** about focus areas
 2. **Use Google Search** to verify against current standards
-3. **Include designs** with `--include-files` for compliance checks
+3. **Include designs** by referencing files in the prompt (ensure they are in the workspace or included via `--include-directories`)
 4. **Narrow scope** with `--include-directories` for large codebases
 5. **Multi-phase** reviews for comprehensive analysis
 6. **Verify findings** with Read tool before presenting
@@ -493,7 +493,7 @@ Documentation:
 ### Comparative Review
 
 ```bash
-gemini --sandbox --include-files spec-v1.pdf,spec-v2.pdf -p "Review implementation and explain:
+gemini --sandbox -p "Review implementation against spec-v1.pdf and spec-v2.pdf and explain:
 - Which spec version is implemented
 - Discrepancies from both versions
 - Missing features from target spec"
@@ -502,7 +502,7 @@ gemini --sandbox --include-files spec-v1.pdf,spec-v2.pdf -p "Review implementati
 ### Architecture Review
 
 ```bash
-gemini --sandbox --include-files architecture-diagram.png --include-directories src -p "Review architecture implementation:
+gemini --sandbox --include-directories src -p "Review architecture implementation using architecture-diagram.png:
 - Compare code structure with diagram
 - Identify architectural violations
 - Suggest improvements for alignment

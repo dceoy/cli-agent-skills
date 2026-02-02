@@ -151,32 +151,7 @@ codex --sandbox=workspace-write exec "[TASK]"
 # Prompts for approval before each action
 ```
 
-### Preview Mode
-
-```bash
-codex --sandbox=workspace-write exec "[TASK]" --dry-run
-# Shows what would be done without executing
-```
-
-### Automated Mode ⚠️
-
-```bash
-codex --sandbox=workspace-write exec "[TASK]" --yes
-# Auto-approves all actions - use with caution!
-```
-
-**Only use `--yes` for:**
-
-- Low-risk tasks (formatting, comments)
-- Isolated environments
-- Well-tested operations
-
-**Never use `--yes` for:**
-
-- Production code
-- Security-sensitive changes
-- Database operations
-- File deletions
+Use the standard execution mode from `codex --help` (no auto-approval flags).
 
 ## Verification Workflow
 
@@ -225,7 +200,7 @@ After Codex executes, ALWAYS:
 
 - Use vague instructions like "make it better"
 - Skip verification steps
-- Use `--yes` for critical code
+- Avoid auto-approval flags; review each change before applying.
 - Commit without reviewing
 - Ignore errors or warnings
 

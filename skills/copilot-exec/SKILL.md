@@ -111,7 +111,7 @@ Provide:
   ```
 
 - Use `/add-dir` or `--add-dir` to add extra directories.
-- Use `/cwd` or `--cwd` to set the working directory.
+- Use `--add-dir` to allow additional directories in the workspace.
 - Use `/model` to pick another model if needed.
 
 ## Use Custom Instructions
