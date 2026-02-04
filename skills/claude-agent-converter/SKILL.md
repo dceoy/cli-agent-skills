@@ -34,7 +34,7 @@ name: agent-name
 description: When Claude should delegate to this subagent
 tools: Read, Grep, Glob, Bash
 disallowedTools: Write, Edit
-model: sonnet | opus | haiku | inherit
+model: fast | default | advanced | inherit
 permissionMode: default | acceptEdits | dontAsk | bypassPermissions | plan
 skills: skill-1, skill-2
 hooks:
@@ -145,19 +145,19 @@ description: Complete description including what the skill does and when to use 
 
 ## Transformation Rules
 
-| Subagent Field          | Skill Transformation                                    |
-| ----------------------- | ------------------------------------------------------- |
-| `name`                  | `name` in frontmatter                                   |
-| `description`           | `description` expanded with usage triggers              |
-| `tools`                 | Documented in workflow (which tools are used)           |
-| `disallowedTools`       | Documented as constraints (read-only, no modifications) |
-| `model`                 | Noted in workflow if relevant (e.g., "use fast model")  |
-| `permissionMode`        | Documented as workflow constraints                      |
-| `skills`                | Referenced in "Related Skills" or workflow              |
-| `hooks`                 | Documented or extracted to `scripts/`                   |
-| Mode sections           | Separate skills or workflow phases                      |
-| CLI command patterns    | Included in workflow steps                              |
-| Verification checklists | Included in workflow or outputs                         |
+| Subagent Field          | Skill Transformation                                     |
+| ----------------------- | -------------------------------------------------------- |
+| `name`                  | `name` in frontmatter                                    |
+| `description`           | `description` expanded with usage triggers               |
+| `tools`                 | Documented in workflow (which tools are used)            |
+| `disallowedTools`       | Documented as constraints (read-only, no modifications)  |
+| `model`                 | Noted in workflow if relevant (e.g., "use a fast model") |
+| `permissionMode`        | Documented as workflow constraints                       |
+| `skills`                | Referenced in "Related Skills" or workflow               |
+| `hooks`                 | Documented or extracted to `scripts/`                    |
+| Mode sections           | Separate skills or workflow phases                       |
+| CLI command patterns    | Included in workflow steps                               |
+| Verification checklists | Included in workflow or outputs                          |
 
 ## Multi-Mode Agent Handling
 
