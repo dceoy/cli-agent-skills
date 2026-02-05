@@ -13,6 +13,11 @@ Provide thorough, multi-agent code review for pull requests with high-confidence
 - Checking code changes for bugs and AGENTS.md/CLAUDE.md compliance.
 - Validating that changes align with historical context and existing code comments.
 
+## Agent Compatibility
+
+This skill is tool-agnostic and can be executed by Claude Code, OpenAI Codex CLI, GitHub Copilot CLI, or Gemini CLI.
+When posting the PR comment, replace `<agent-name>` in the output template with the active agent name.
+
 ## Inputs
 
 - Pull request URL or number (required).
@@ -84,7 +89,7 @@ Found N issues:
 
 <link to file and line with full sha1 + line range>
 
-Generated with [Claude Code](https://claude.ai/code)
+Generated with <agent-name>
 
 <sub>- If this code review was useful, please react with thumbs up. Otherwise, react with thumbs down.</sub>
 ```
@@ -96,7 +101,7 @@ Generated with [Claude Code](https://claude.ai/code)
 
 No issues found. Checked for bugs and AGENTS.md/CLAUDE.md compliance.
 
-Generated with [Claude Code](https://claude.ai/code)
+Generated with <agent-name>
 ```
 
 ## Link Format Requirements
